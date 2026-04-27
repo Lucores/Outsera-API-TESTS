@@ -25,3 +25,29 @@ Foram implementados testes end-to-end utilizando Cucumber com Cypress.
 - Cypress
 - Cucumber (BDD)
 - JavaScript
+
+### Estrutura do projeto
+
+cypress/
+ ├── e2e/
+ │ ├── api/
+ │ └── checkout/
+ ├── pages/
+ ├── fixtures/
+ ├── support/
+
+.github/workflows/
+ └── cypress-tests.yml
+
+ ## Como Instalar
+
+- npm install
+
+ ## Como Executar
+
+- npx cypress open ou
+- npx cypress run
+
+## CI/CD
+
+Pipeline configurada com GitHub Actions para executar testes automaticamente a cada commit.
