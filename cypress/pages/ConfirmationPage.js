@@ -1,8 +1,7 @@
-export default new ConfirmationPage();
-
 class ConfirmationPage {
     getCompleteHeader() {
-        return
-        cy.get('[data-test="completeheader"]');
+      return cy.get('[data-test="complete-header"]');
     }
-}
+  }
+  
+  export default new ConfirmationPage();

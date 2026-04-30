@@ -1,5 +1,3 @@
-export default new CheckoutPage();
-
 class CheckoutPage {
     fillFirstName(firstName) {
       cy.get('[data-test="firstName"]').clear().type(firstName);
@@ -32,3 +30,4 @@ class CheckoutPage {
     }
   }
   
+  export default new CheckoutPage();

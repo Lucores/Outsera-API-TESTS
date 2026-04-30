@@ -6,8 +6,8 @@
   "scripts": {
   "cy:open": "cypress open",
   "test": "cypress run",
-  "test:api": "cypress run --spec cypress/e2e/api/*.cy.js",
-  "test:e2e": "cypress run --spec cypress/e2e/checkout/*.feature",
+  "test:api": "cypress run --spec cypress/e2e/api",
+  "test:e2e": "cypress run --spec cypress/e2e/checkout",
   "test:chrome": "cypress run --browser chrome",
   "test:ci": "cypress run"
 },

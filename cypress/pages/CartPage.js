@@ -1,5 +1,3 @@
-export default new CartPage();
-
 class CartPage {
     getCartItem() {
         return cy.get(".cart_item");
@@ -8,3 +6,5 @@ class CartPage {
         cy.get('[data-test="checkout"]').click()
     }
 }
+
+export default new CartPage();

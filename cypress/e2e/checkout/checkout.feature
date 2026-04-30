@@ -1,7 +1,5 @@
 Feature: Checkout em e-commerce
 
-  Feature: Checkout em e-commerce
-
   Scenario: Compra completa com sucesso
     Given que acesso a página de login
     When faço login com usuário válido
@@ -23,3 +21,5 @@ Feature: Checkout em e-commerce
     And inicio o checkout
     And tento continuar sem preencher os dados obrigatórios
     Then devo visualizar mensagem de erro no checkout
+
+

@@ -1,4 +1,3 @@
-
 import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
 
 import LoginPage from "../../pages/LoginPage";
@@ -45,19 +44,13 @@ Then("devo visualizar mensagem de erro no login", () => {
 
 When("adiciono um produto ao carrinho", () => {
   ProductsPage.getTitle().should("contain", "Products");
-
-  ProductsPage.addProductToCart(products.backpack.addToCartSelector);
-
-  ProductsPage.getCartBadge()
-    .should("be.visible")
-    .and("contain", "1");
+  ProductsPage.addProductToCart(products.backpack);
+  ProductsPage.getCartBadge().should("be.visible").and("contain", "1");
 });
 
 When("inicio o checkout", () => {
   ProductsPage.openCart();
-
   CartPage.getCartItem().should("be.visible");
-
   CartPage.clickCheckout();
 });
 
@@ -71,12 +64,12 @@ When("finalizo a compra", () => {
 });
 
 Then("devo visualizar a mensagem de pedido concluído", () => {
-  ConfirmationPage.getCompleteHeader()
+  cy.get('[data-test="complete-header"]')
     .should("be.visible")
     .and("contain", "Thank you for your order");
 
   cy.screenshot("checkout-completo-sucesso");
-});
+})
 
 When("tento continuar sem preencher os dados obrigatórios", () => {
   CheckoutPage.continueCheckout();
@@ -89,3 +82,4 @@ Then("devo visualizar mensagem de erro no checkout", () => {
 
   cy.screenshot("checkout-campos-obrigatorios-em-branco");
 });
+

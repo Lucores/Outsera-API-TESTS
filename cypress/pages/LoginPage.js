@@ -1,5 +1,3 @@
-export default new LoginPage();
-
 class LoginPage {
     visit() {
       cy.visit("/");
@@ -28,5 +26,7 @@ class LoginPage {
     }
       
     }  
+
+    export default new LoginPage();
 
   

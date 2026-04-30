@@ -1,16 +1,19 @@
-export default new ProductsPage();
-
 class ProductsPage {
     getTitle() {
-        return cy.get('[data-test="Title"]');
+      return cy.get('[data-test="title"]');
     }
-    addProductToCart(productSelector) {
-        cy.get(productSelector).click();
+  
+    addProductToCart(product) {
+      cy.get(product.addToCartSelector).click();
     }
+  
     openCart() {
-        cy.get(".shopping_cart_link").click();
+      cy.get(".shopping_cart_link").click();
     }
+  
     getCartBadge() {
-        return cy.get(".shopping_cart_badge");
+      return cy.get(".shopping_cart_badge");
     }
-}
+  }
+  
+  export default new ProductsPage();

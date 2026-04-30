@@ -1,6 +1,6 @@
 {
     "backpack": {
-        "name": "Sauce Labs Backpack",
-        "addToCarSelector": "[data-test='add-tocart-sauce-labs-backpack']"
+      "name": "Sauce Labs Backpack",
+      "addToCartSelector": "[data-test='add-to-cart-sauce-labs-backpack']"
     }
-}
+  }
