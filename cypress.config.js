@@ -9,7 +9,7 @@ const {
 
 module.exports = defineConfig({
   e2e: {
-    baseUrl: "https://www.saucedemo.com",
+    baseUrl: process.env.BASE_URL || "https://www.saucedemo.com",
 
     specPattern: [
       "cypress/e2e/**/*.cy.js",
@@ -21,6 +21,7 @@ module.exports = defineConfig({
     video: true,
 
     env: {
+      apiUrl: process.env.API_URL || "https://jsonplaceholder.typicode.com",
       stepDefinitions: "cypress/e2e/checkout/checkoutSteps.js"
     },
 

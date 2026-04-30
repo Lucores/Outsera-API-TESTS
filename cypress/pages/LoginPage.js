@@ -1,19 +1,32 @@
+export default new LoginPage();
+
 class LoginPage {
     visit() {
       cy.visit("/");
     }
-  
-    login(username, password) {
+
+    fillUsername(username) {
       cy.get('[data-test="username"]').clear().type(username);
+    }
+
+    fillPassword(password) {
       cy.get('[data-test="password"]').clear().type(password);
+    }
+
+    submitLogin() {
       cy.get('[data-test="login-button"]').click();
+    }  
+
+    login(username, password) {
+      this.fillUsername(username);
+      this.fillPassword(password);
+      this.submitLogin();
+      }
+
+    getErrorMessage() {
+      return cy.get('[data-test= "error"]');
     }
+      
+    }  
+
   
-    validateErrorMessage(message) {
-      cy.get('[data-test="error"]')
-        .should("be.visible")
-        .and("contain", message);
-    }
-  }
-  
-  export default new LoginPage();

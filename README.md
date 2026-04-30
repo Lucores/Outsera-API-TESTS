@@ -18,7 +18,6 @@ evidências das execuções.
 
 # Arquitetura
 
-´´´ text
 cypress/ 
 e2e/ 
 api/

@@ -1,46 +1,77 @@
 
 import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
+
 import LoginPage from "../../pages/LoginPage";
+import ProductsPage from "../../pages/ProductsPage";
+import CartPage from "../../pages/CartPage";
+import CheckoutPage from "../../pages/CheckoutPage";
+import ConfirmationPage from "../../pages/ConfirmationPage";
+
+let users;
+let checkoutData;
+let products;
+
+before(() => {
+  cy.fixture("users").then((data) => {
+    users = data;
+  });
+
+  cy.fixture("checkoutData").then((data) => {
+    checkoutData = data;
+  });
+
+  cy.fixture("products").then((data) => {
+    products = data;
+  });
+});
 
 Given("que acesso a página de login", () => {
   LoginPage.visit();
 });
 
 When("faço login com usuário válido", () => {
-  LoginPage.login("standard_user", "secret_sauce");
+  LoginPage.login(users.validUser.username, users.validUser.password);
 });
 
 When("tento login com senha inválida", () => {
-  LoginPage.login("standard_user", "senha_errada");
+  LoginPage.login(users.invalidUser.username, users.invalidUser.password);
 });
 
 Then("devo visualizar mensagem de erro no login", () => {
-  LoginPage.validateErrorMessage("Username and password do not match");
+  LoginPage.getErrorMessage()
+    .should("be.visible")
+    .and("contain", "Username and password do not match");
 });
 
 When("adiciono um produto ao carrinho", () => {
-  cy.get('[data-test="add-to-cart-sauce-labs-backpack"]').click();
-  cy.get(".shopping_cart_badge").should("be.visible").and("contain", "1");
+  ProductsPage.getTitle().should("contain", "Products");
+
+  ProductsPage.addProductToCart(products.backpack.addToCartSelector);
+
+  ProductsPage.getCartBadge()
+    .should("be.visible")
+    .and("contain", "1");
 });
 
 When("inicio o checkout", () => {
-  cy.get(".shopping_cart_link").click();
-  cy.get('[data-test="checkout"]').click();
+  ProductsPage.openCart();
+
+  CartPage.getCartItem().should("be.visible");
+
+  CartPage.clickCheckout();
 });
 
 When("preencho os dados obrigatórios do comprador", () => {
-  cy.get('[data-test="firstName"]').type("Luciana");
-  cy.get('[data-test="lastName"]').type("QA");
-  cy.get('[data-test="postalCode"]').type("83260-000");
-  cy.get('[data-test="continue"]').click();
+  CheckoutPage.fillCustomerData(checkoutData.validCustomer);
+  CheckoutPage.continueCheckout();
 });
 
 When("finalizo a compra", () => {
-  cy.get('[data-test="finish"]').click();
+  CheckoutPage.finishCheckout();
 });
 
 Then("devo visualizar a mensagem de pedido concluído", () => {
-  cy.get('[data-test="complete-header"]')
+  ConfirmationPage.getCompleteHeader()
     .should("be.visible")
     .and("contain", "Thank you for your order");
 
@@ -48,15 +79,13 @@ Then("devo visualizar a mensagem de pedido concluído", () => {
 });
 
 When("tento continuar sem preencher os dados obrigatórios", () => {
-  cy.get('[data-test="continue"]').click();
+  CheckoutPage.continueCheckout();
 });
 
 Then("devo visualizar mensagem de erro no checkout", () => {
-  cy.get('[data-test="error"]')
+  CheckoutPage.getErrorMessage()
     .should("be.visible")
     .and("contain", "First Name is required");
 
   cy.screenshot("checkout-campos-obrigatorios-em-branco");
 });
-
-
